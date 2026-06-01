@@ -191,7 +191,7 @@ Explanation for each field:
     /* Number of coin decimals places for notifications and front-end */
     "coinDecimalPlaces": 2, 
     /* Coin network time to mine one block, see DIFFICULTY_TARGET constant in DAEMON_CODE/src/cryptonote_config.h */
-    "coinDifficultyTarget": 60, 
+    "coinDifficultyTarget": 120,
     
     //used on blocks page to generate hyperlinks.
     "blockchainExplorer": "http://explorer.zent.cash/?hash={id}#blockchain_block",
@@ -357,7 +357,7 @@ Explanation for each field:
             The value should roughly be equivalent to the average round duration in seconds 
             divided by 8. When deviating by too much numbers may get too high for JS. */
             "weight": 300, 
-            "blockTime": 60,
+            "blockTime": 120,
             "lastBlockCheckRate": 1
          }
     },

@@ -4,7 +4,7 @@
     "symbol": "ZTC",
     "coinUnits": 100,
     "coinDecimalPlaces": 2,
-    "coinDifficultyTarget": 60,
+    "coinDifficultyTarget": 120,
     "blockchainExplorer": "http://explorer.zent.cash/?hash={id}#blockchain_block",
     "transactionExplorer": "http://explorer.zent.cash/?hash={id}#blockchain_transaction",
     "daemonType": "ethereum",
@@ -101,7 +101,7 @@
       "slushMining": {
         "enabled": false,
         "weight": 300,
-        "blockTime": 60,
+        "blockTime": 120,
         "lastBlockCheckRate": 1
       }
     },
