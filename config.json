@@ -1,5 +1,5 @@
 {
-    "poolHost": "your.pool.host",
+    "poolHost": "localhost",
     "coin": "Zent",
     "symbol": "ZTC",
     "coinUnits": 100,
@@ -31,7 +31,7 @@
     "poolServer": {
       "enabled": true,
       "clusterForks": "auto",
-      "poolAddress": "Your ZTC Wallet address",
+      "poolAddress": "0x79eb43064b826570FFa9c329c5685208E5257703",
       "blockRefreshInterval": 1000,
       "minerTimeout": 1000,
       "sslCert": "./cert.pem",
@@ -151,14 +151,17 @@
       "host": "127.0.0.1",
       "port": 1
     },
-    "daemon": {
+   "daemon": {
       "host": "127.0.0.1",
-      "port": 21698
+      "port": 8545,
+      "user": null,
+      "password": null,
+      "ssl": false
     },
     "wallet": {
       "host": "127.0.0.1",
-      "port": 21699,
-      "password": "Wallet RPC Password"
+      "port": 8545,
+      "password": ""
     },
     "redis": {
       "host": "127.0.0.1",
