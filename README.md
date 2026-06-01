@@ -199,8 +199,8 @@ Explanation for each field:
     /* Used on the payments page to generate hyperlinks */
     "transactionExplorer": "http://explorer.zent.cash/?hash={id}#blockchain_transaction",
 
-    /* Set daemon type. Supported values: default, forknote (Fix block height + 1), bytecoin (ByteCoin Wallet RPC API) */
-    "daemonType": "bytecoin",
+    /* Set daemon type. Supported values: default, forknote (Fix block height + 1), bytecoin (ByteCoin Wallet RPC API), ethereum (Ethereum JSON-RPC/getWork) */
+    "daemonType": "ethereum",
     
     /* Set RandomX algorithm settings.
     This pool is RandomX-only; other cnAlgorithm values are ignored at runtime.

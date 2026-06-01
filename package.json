@@ -1,35 +1,35 @@
 {
-	"name": "cryptonote-nodejs-pool",
-	"version": "2.6.1",
-	"license": "GPL-2.0",
-	"original author": "Zent Cash Developers",
-	"maintained by": "SuperBlockchain Pool",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/ZentCashFoundation/cryptonote-nodejs-pool.git"
-	},
-	"dependencies": {
-		"async": "^3.2.6",
-		"base58-native": "*",
-		"bignum": "*",
-		"bufferutil": "*",
-		"cli-color": "*",
-		"cryptoforknote-util": "git+https://github.com/SuperBlockchain-Pool/node-cryptoforknote-util.git#nd20",
-		"cryptonight-hashing": "git+https://github.com/MoneroOcean/node-cryptonight-hashing.git",
-		"dateformat": "4.5.1",
-		"discord.js": "^14.17.3",
-		"domexception": "*",
-		"mailgun.js": "*",
-		"node-telegram-bot-api": "*",
-		"nodemailer": "*",
-		"nodemailer-sendmail-transport": "*",
-		"nodemon": "^3.1.9",
-		"redis": "3.1.2",
-		"socket.io": "4.8.1",
-		"time-ago": "*",
-		"utf-8-validate": "*"
-	},
-	"engines": {
-		"node": ">=18.0.0"
-	}
+       "name": "cryptonote-nodejs-pool",
+       "version": "2.6.1",
+       "license": "GPL-2.0",
+       "original author": "Zent Cash Developers",
+       "maintained by": "SuperBlockchain Pool",
+       "repository": {
+               "type": "git",
+               "url": "https://github.com/ZentCashFoundation/cryptonote-nodejs-pool.git"
+       },
+       "dependencies": {
+               "async": "^3.2.6",
+               "base58-native": "*",
+               "bignum": "*",
+               "bufferutil": "*",
+               "cli-color": "*",
+               "cryptoforknote-util": "git+https://github.com/SuperBlockchain-Pool/node-cryptoforknote-util.git#nd20",
+               "cryptonight-hashing": "git+https://github.com/MoneroOcean/node-cryptonight-hashing.git",
+               "dateformat": "4.5.1",
+               "discord.js": "^14.17.3",
+               "domexception": "*",
+               "mailgun.js": "*",
+               "node-telegram-bot-api": "*",
+               "nodemailer": "*",
+               "nodemailer-sendmail-transport": "*",
+               "nodemon": "^3.1.9",
+               "redis": "3.1.2",
+               "socket.io": "4.8.1",
+               "time-ago": "*",
+               "utf-8-validate": "*"
+       },
+       "engines": {
+               "node": ">=18.0.0"
+       }
 }

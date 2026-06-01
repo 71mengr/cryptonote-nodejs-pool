@@ -1,0 +1,41 @@
+# Node.js dependencies
+node_modules/
+
+# Configuration files that may contain secrets or local settings
+config.json
+config.local.json
+.env
+*.env
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# IDE / editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Deployment / generated folders (if not tracked)
+#deployment/
+#website_example/ (if you don't want to commit the example)
+#email_templates/ (if generated, but typically tracked – adjust as needed)
+
+# Package lock
+# package-lock.json
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Temporary files
+tmp/
+temp/
+*.tmp

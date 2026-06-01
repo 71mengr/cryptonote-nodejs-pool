@@ -8,7 +8,7 @@
     "coinDifficultyTarget": 60,
     "blockchainExplorer": "http://explorer.zent.cash/?hash={id}#blockchain_block",
     "transactionExplorer": "http://explorer.zent.cash/?hash={id}#blockchain_transaction",
-    "daemonType": "bytecoin",
+    "daemonType": "ethereum",
     "cnAlgorithm": "randomx",
     "cnVariant": 0,
     "cnBlobType": 2,
