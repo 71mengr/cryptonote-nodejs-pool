@@ -202,14 +202,15 @@ Explanation for each field:
     /* Set daemon type. Supported values: default, forknote (Fix block height + 1), bytecoin (ByteCoin Wallet RPC API) */
     "daemonType": "bytecoin",
     
-    /* Set Cryptonight algorithm settings.
-    Supported algorithms: cryptonight (default). cryptonight_light and cryptonight_heavy
-    Supported variants for "cryptonight": 0 (Original), 1 (Monero v7), 3 (Stellite / XTL)
-    Supported variants for "cryptonight_light": 0 (Original), 1 (Aeon v7), 2 (IPBC)
+    /* Set RandomX algorithm settings.
+    This pool is RandomX-only; other cnAlgorithm values are ignored at runtime.
+    Supported RandomX variant: 0 (RandomX / rx/0).
     Supported blob types: 0 (Cryptonote), 1 (Forknote v1), 2 (Forknote v2), 3 (Cryptonote v2 / Masari) */
-    "cnAlgorithm": "argon2",
+    "cnAlgorithm": "randomx",
     "cnVariant": 0,
     "cnBlobType": 2,
+    "isRandomX": true,
+    "includeAlgo": "rx/0",
    
     /* True to include block.height in job to miner */
     "includeHeight": true,
