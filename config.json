@@ -156,7 +156,8 @@
       "port": 8545,
       "user": null,
       "password": null,
-      "ssl": false
+      "ssl": false,
+      "alwaysPoll": true
     },
     "wallet": {
       "host": "127.0.0.1",
@@ -260,10 +261,6 @@
       "daemon": {
         "checkInterval": 60,
         "rpcMethod": "eth_blockNumber"
-      },
-      "wallet": {
-        "checkInterval": 60,
-        "rpcMethod": "getbalance"
       }
     },
     "charts": {
