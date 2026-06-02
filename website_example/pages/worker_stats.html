@@ -166,6 +166,7 @@ currentPage = {
 
     },
     update: function(updateKey){
+        ranOnce = workerstats_InitTemplate(ranOnce, addressTimeout, xhrAddressPoll, xhrGetPayments)
     }
 };
 
@@ -202,6 +203,6 @@ $(function() {
 });
 
 
-workerstats_InitTemplate(ranOnce, addressTimeout, xhrAddressPoll)
+ranOnce = workerstats_InitTemplate(ranOnce, addressTimeout, xhrAddressPoll, xhrGetPayments)
 
 </script>

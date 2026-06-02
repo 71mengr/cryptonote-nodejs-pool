@@ -2066,6 +2066,8 @@ function workerstats_RenderPayments(paymentsResults, stats){
 }
 
 function workerstats_InitTemplate(ranOnce, addressTimeout, xhrAddressPoll, xhrGetPayments ) {
+    if (!lastStats || !lastStats.config) return ranOnce;
+
     let coin = lastStats.config.coin
     if ($(`#blocksTabs li:contains(${coin})`).length === 0) {
       let template = $('#siblingTabTemplate').html();
@@ -2100,6 +2102,8 @@ function workerstats_InitTemplate(ranOnce, addressTimeout, xhrAddressPoll, xhrGe
 
     if (!ranOnce) 
         ranOnce = RunOnce()    
+
+    return ranOnce;
 }
 
 
