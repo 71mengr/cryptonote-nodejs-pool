@@ -6,17 +6,7 @@
 </div>
 
 <script id="mainPoolTemplate" type="text/x-handlebars-template">
-   
-    <!-- Information Alert -->
-    <div class="col-sm-12">
-        <br>
-            <div class="infoAlert">
-                <div class="text-center"><span data-tkey="infoAlert">N/A</span></div>
-            </div>
-        <br>
-    </div>
-    
-    <!-- Pool Hash Rate -->
+<!-- Pool Hash Rate -->
     <div class="col-lg-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
             <div class="icon">
@@ -187,8 +177,21 @@
                 <span class="fa fa-dollar"></span>
             </div>
             <div class="content">
-                <div class="text"><span class="text" data-tkey="paymentsMinimum">Minimum Payout</span><span class="text"> : </span><span class="value2" id="paymentsMinimum">N/A</span></div>
-                <div class="text"><span class="text" data-tkey="paymentsInterval">Payment Interval</span><span class="text"> : </span><span class="value2" id="paymentsInterval">N/A</span></div>
+                <div class="text"><span data-tkey="paymentsMinimum">Minimum Payout</span></div>
+                <div class="value"><span id="paymentsMinimum">N/A</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Interval -->
+    <div class="col-lg-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-clock-o"></span>
+            </div>
+            <div class="content">
+                <div class="text"><span data-tkey="paymentsInterval">Payment Interval</span></div>
+                <div class="value"><span id="paymentsInterval">N/A</span></div>
             </div>
         </div>
     </div>
@@ -248,7 +251,7 @@ currentPage = {
 
         let stats = updateKey === parentCoin ? lastStats : mergedStats[updateKey]
         if (stats) {
-            
+
             home_GenerateNetworkStats(updateKey, stats.config.symbol)
 
             if (!lastBlockFound)
@@ -261,12 +264,11 @@ currentPage = {
                     $('#poolLastBlockFound').timeago('update', new Date(lastBlockFound).toISOString());
                 }
             }
+
             updateText(`networkHashrate${updateKey}`, getReadableHashRateString(stats.network.difficulty / stats.config.coinDifficultyTarget) + '/sec');
             updateText(`networkDifficulty${updateKey}`, formatNumber(stats.network.difficulty.toString(), ' '));
             updateText(`blockchainHeight${updateKey}`, formatNumber(stats.network.height.toString(), ' '));
-	        let rewardMinusNetworkFee = stats.lastblock.reward - (stats.lastblock.reward * (stats.config.networkFee ? stats.config.networkFee / 100 : 0))
-	        updateText(`networkLastReward${updateKey}`, getReadableCoin(stats, rewardMinusNetworkFee));
-            // updateText(`networkLastReward${updateKey}`, getReadableCoin(stats, stats.lastblock.reward));
+            updateText(`networkLastReward${updateKey}`, getReadableCoin(stats, stats.lastblock.reward));
 
             updateText(`poolMiners${updateKey}`, `${stats.pool.miners}/${stats.pool.minersSolo}`);
             updateText(`blocksTotal${updateKey}`, `${stats.pool.totalBlocks}/${stats.pool.totalBlocksSolo}`);
@@ -292,10 +294,12 @@ currentPage = {
 // Enable timeago on last block found
 $('#networkLastBlockFound,#poolLastBlockFound').timeago();
 
+
 // Handle charts tooltip
 $(function() {
     $('[data-toggle="tooltip"]').tooltip();
 });
+
 
 // Render charts
 var xhrRenderCharts;

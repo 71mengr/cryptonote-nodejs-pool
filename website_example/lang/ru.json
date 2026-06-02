@@ -6,7 +6,7 @@
     "poolBlocks": "Блоки пула",
     "settings": "Настройки",
     "faq": "FAQ",
-    "telegram": "Telegram",
+    "telegram": "Группа Telegram",
     "discord": "Discord",
     "contactUs": "Почта",
     
@@ -15,7 +15,6 @@
     "you": "Вы",
     "statsUpdated": "Статистика обновлена",
     
-    "infoAlert" : "",
     "poolHashrate": "Скорость пула",
     "currentEffort": "Сложность раунда",
     "networkHashrate": "Скорость сети",
@@ -102,7 +101,7 @@
     "download": "Скачать",
     "showConfig": "Посмотреть",
 
-    "market": "Калькулятор",
+    "market": "Рынок / Калькулятор",
     "loadingMarket": "Загрузка стоимости",
     "priceIn": "Стоимость в",
     "hashPer": "Стоимость хеша/",

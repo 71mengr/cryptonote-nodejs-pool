@@ -15,7 +15,6 @@
     "you": "Vous",
     "statsUpdated": "Statistiques mises à jour",
     
-    "infoAlert" : "",
     "poolHashrate": "Taux de Hash du Pool",
     "currentEffort": "Effort actuel",
     "networkHashrate": "Taux de Hash du réseau",
@@ -104,7 +103,7 @@
     "download": "Télécharger",
     "showConfig": "Afficher",
 
-    "market": "Calculateur",
+    "market": "Marché et calculateur",
     "loadingMarket": "Chargement des prix du marché",
     "priceIn": "Prix en",
     "hashPer": "Hash/",

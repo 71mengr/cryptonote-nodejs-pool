@@ -132,89 +132,8 @@
             </tr>
             </thead>
             <tbody id="miningApps_rows">
-
-
-            <!-- SRBMiner-Multi -->
-            <tr class="appInfo">
-                <td class="miningAppTitle">SRBMiner-Multi</td>
-                <td>CPU</td>
-                <td>CPU & AMD GPU cryptocurrency miner.</td>
-                <td><a class="btn btn-success" target="_blank" href="https://github.com/doktor83/SRBMiner-Multi/releases"><span data-tkey="download">Download</span></a></td>
-                <td><a class="btn btn-default" role="button" data-toggle="collapse" href="#srbminer" aria-expanded="true" aria-controls="collapseExample"><span data-tkey="showConfig">See more</span></a></td>
-            </tr>
-            <tr class="appConfig">
-                <td colspan="5">
-                    <div class="collapse" id="srbminer">
-                        <pre>
-                            <code>
-                            SRBMiner-MULTI.exe --algorithm yespowerdogemone --pool <span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span>" --wallet <span class="exampleLogin">YOUR_WALLET_ADDRESS</span> --password <span class="examplePassword">YOUR_WORKER_NAME</span> --cpu-threads 0 --disable-gpu
-                            </code>
-                        </pre>
-                    </div>
-                </td>
-            </tr>
-
-            <!-- SBP Miner 
-            <tr class="appInfo">
-                <td class="miningAppTitle">SBP Miner</td>
-                <td>CPU</td>
-                <td>SBP Miner, optimized with YespowerR32+Blake256</td>
-                <td><a class="btn btn-success" target="_blank" href="https://github.com/SuperBlockchain-Pool/sbp-miner/releases"><span tkey="download">Download</span></a></td>
-                <td><a class="btn btn-default" role="button" data-toggle="collapse" href="#sbp-miner" aria-expanded="true" aria-controls="collapseExample"><span data-tkey="showConfig">See more</span></a></td>
-              </tr>
-              <tr class="appConfig">
-                <td colspan="5">
-                  <div class="collapse" id="sbp-miner">
-                      <pre><code>
-
-                        <span><b>./sbp -c config.json</b></span>
-
-                        <span tkey="file-config-json-sbp-miner">File config JSON:</span>
-
-                        {
-                          "url": "<span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span>",
-                          "user": "<span class="exampleLogin">YOUR_WALLET_ADDRESS</span>",
-                          "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>",
-                          "av": 3
-                        }
-
-                      </code></pre>
-                  </div>
-                </td>
-              </tr>
-              -->
-              <!-- XMRig Dogemone 
-              <tr class="appInfo">
-                <td class="miningAppTitle">XMRig Dogemone</td>
-                <td>CPU</td>
-                <td>XMRIG Fork, optimized with remote control.</td>
-                <td><a class="btn btn-success" target="_blank" href="https://github.com/HashHound/Xmrig-dogemone/releases"><span tkey="download">Download</span></a></td>
-                <td><a class="btn btn-default" role="button" data-toggle="collapse" href="#xmrig-dogemone" aria-expanded="true" aria-controls="collapseExample"><span tkey="showConfig">See more</span></a></td>
-              </tr>
-              <tr class="appConfig">
-                <td colspan="5">
-                  <div class="collapse" id="xmrig-dogemone">
-                      <pre>
-                        <code>
-
-                          <span><b>./xmrig -c config.json</b></span>
-
-                          <span tkey="file-config-json-xmrig-dogemone">File config JSON:</span>
-
-                          {
-                                 "url": "<span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span>",
-                                 "user": "<span class="exampleLogin">YOUR_WALLET_ADDRESS</span>",
-                                 "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>",
-                                 "av": 3
-                          }
-
-                        </code>
-                      </pre>
-                  </div>
-                </td>
-              </tr>   
-              -->
-	         <!-- XMR Stak 
+	    
+	    <!-- XMR Stak -->
             <tr class="appInfo">
                 <td class="miningAppTitle">XMR Stak</td>
                 <td>CPU & GPU (AMD/NVIDIA)</td>
@@ -243,9 +162,8 @@
                     </div>
                 </td>
             </tr>
-            -->
 	    
-	        <!-- XMRig 
+	    <!-- XMRig -->
             <tr class="appInfo">
                 <td class="miningAppTitle">XMRig</td>
                 <td>CPU</td>
@@ -264,17 +182,16 @@
         "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>",
         "keepalive": true,
         "nicehash": false,
-        "variant": "trtl",
-        "algo": "cryptonight-pico/trtl"
+        "variant": "!msr",
+        "algo": "<span id="xmrigAlgoCPU"></span>"
     }
 ],</code></pre>
 
                     </div>
                 </td>
             </tr>
-            -->
 
-	         <!-- XMRig-AMD 
+	    <!-- XMRig-AMD -->
             <tr class="appInfo">
                 <td class="miningAppTitle">XMRig-AMD</td>
                 <td>OpenCL (AMD)</td>
@@ -293,17 +210,16 @@
         "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>"
         "keepalive": true,
         "nicehash": false,
-        "variant": "trtl",
-        "algo": "cryptonight-pico/trtl"
+        "variant": "!msr",
+        "algo": "<span id="xmrigAlgoAMD"></span>"
     }
 ],</code></pre>
 
                     </div>
                 </td>
             </tr>
-            -->
 
-	        <!-- XMRig-NVIDIA 
+	    <!-- XMRig-NVIDIA -->
             <tr class="appInfo">
                 <td class="miningAppTitle">XMRig-NVIDIA</td>
                 <td>Cuda (Nvidia)</td>
@@ -322,17 +238,16 @@
         "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>"
         "keepalive": true,
         "nicehash": false
-        "variant": "trtl",
-        "algo": "cryptonight-pico/trtl"
+        "variant": "!msr",
+        "algo": "<span id="xmrigAlgoNVIDIA"></span>"
     }
 ],</code></pre>
 
                     </div>
                 </td>
             </tr>
-            -->
 
-	        <!-- XMRigCC 
+	    <!-- XMRigCC -->
             <tr class="appInfo">
                 <td class="miningAppTitle">XMRigCC</td>
                 <td>CPU</td>
@@ -351,34 +266,13 @@
         "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>",
         "keepalive": true,
         "nicehash": false,
-        "algo": "cryptonight-ultralite",
-        "pow-variant": "2"
+        "algo": "<span id="xmrigAlgoCC"></span>",
+        "pow-variant": "!msr"
     },
 ],</code></pre>
-
-                    </div>
-                </td>
-            </tr>
-            -->
-
-            <!-- Team Red Miner 
-            <tr class="appInfo">
-                <td class="miningAppTitle">Team Red Miner</td>
-                <td>GPU</td>
-                <td>AMD GPU Optimized Cryptocurrency Miner</td>
-                <td><a class="btn btn-success" target="_blank" href="https://github.com/todxx/teamredminer/releases/latestt"><span data-tkey="download">Download</span></a></td>
-                <td><a class="btn btn-default" role="button" data-toggle="collapse" href="#teamRedMiner" aria-expanded="true" aria-controls="collapseExample"><span data-tkey="showConfig">See more</span></a></td>
-            </tr>
-            <tr class="appConfig">
-                <td colspan="5">
-                    <div class="collapse" id="teamRedMiner">
-<pre><code>teamredminer.ext -a cnv8 trtle -o stratum+tcp//<span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span> -u "<span class="exampleLogin">YOUR_WALLET_ADDRESS</span>" -p "<span class="examplePassword">YOUR_WORKER_NAME</span>" 
-</code></pre>
-
-                    </div>
-                </td>
-            </tr>
-            -->
+			    </div>
+			</td>
+		    </tr>	    
             </tbody>
         </table>
     </div>
@@ -428,31 +322,32 @@ currentPage = {
         if (!lastStats.config.fixedDiffEnabled) $('#fixedDiff').hide();
 
         var coin = lastStats.config.coin.toLowerCase() || null;
-        var cnAlgorithm = lastStats.config.cnAlgorithm || "randomx";
+        var cnAlgorithm = lastStats.config.cnAlgorithm || "cryptonight";
         var cnVariant = lastStats.config.cnVariant || 0;
 
         algorithm = '';
         xmrstakAlgo = '';
+        xmrigAlgo = '';
 
         if (cnAlgorithm == "argon2") {
             if (cnVariant === 1)
                 algorithm = 'Argon2id WRKZ';
             else
                 algorithm = 'Argon2id Chukwa';
-        } else if (cnAlgorithm == "yespower_blake256") {
-                algorithm = 'YespowerR32 + Blake256';
-                xmrstakAlgo = 'null';
         } else if (cnAlgorithm == "randomx") {
-            if (cnVariant === 1)
-                algorithm = 'CryptoNight DefyX';
-            else if (cnVariant === 2)
+            if (cnVariant === 1) {
+                algorithm = 'CryptoNight DefyX'; }
+            else if (cnVariant === 2) {
                 algorithm = 'RandomARQ';
+		xmrigAlgo = 'rx/arq'; }
             else if (cnVariant === 17) {
                 algorithm = 'RandomWOW';
                 xmrstakAlgo = 'randomX_wow';
+		xmrigAlgo = 'rx/wow';
             } else if (cnVariant === 18) {
                 algorithm = 'RandomXL';
                 xmrstakAlgo = 'randomX_loki';
+		xmrigAlgo = 'rx/loki';
             } else {
                 algorithm = 'RandomX';
                 xmrstakAlgo = 'randomX';
@@ -461,31 +356,39 @@ currentPage = {
             if (cnVariant === 1) {
                 algorithm = 'CryptoNight Lite v7';
                 xmrstakAlgo = 'cryptonight_lite_v7';
+		xmrigAlgo = 'cn-lite/0';
             } else {
                 algorithm = 'CryptoNight Lite';
                 xmrstakAlgo = 'cryptonight_lite';
+		xmrigAlgo = 'cn-lite/1';
             }
         } else if (cnAlgorithm == "cryptonight_pico") {
             algorithm = 'CryptoNight Turtle';
             xmrstakAlgo = 'cryptonight_turtle';
+	    xmrigAlgo = 'cn-pico';
         } else if (cnAlgorithm == "cryptonight_heavy") {
             if (cnVariant === 1) {
                 algorithm = 'CryptoNight Haven';
                 xmrstakAlgo = 'cryptonight_haven';
+		xmrigAlgo = 'cn-heavy/xhv';
             } else if (cnVariant === 2) {
                 algorithm = 'CryptoNight Saber';
                 xmrstakAlgo = 'cryptonight_bittube2';
+		xmrigAlgo = 'cn-heavy/tube';
             } else {
                 algorithm = 'CryptoNight Heavy';
                 xmrstakAlgo = 'cryptonight_heavy';
+		xmrigAlgo = 'cn-heavy/0';
             }
         } else {
             if (cnVariant === 1) {
                 algorithm = 'CryptoNight v7';
                 xmrstakAlgo = 'cryptonight_v7';
+		xmrigAlgo = 'cn/1';
             } else if (cnVariant === 4) {
                 algorithm = 'CryptoNight Fast';
                 xmrstakAlgo = 'cryptonight_masari';
+                xmrigAlgo = 'cn/fast';
             } else if (cnVariant === 6) {
                 algorithm = 'CryptoNight Alloy';
                 xmrstakAlgo = 'cryptonight_alloy';
@@ -504,23 +407,31 @@ currentPage = {
             } else if (cnVariant === 13) {
                 algorithm = 'CryptoNight R';
                 xmrstakAlgo = 'cryptonight_r';
+		xmrigAlgo = 'cn/r';
             } else if (cnVariant === 14) {
                 algorithm = 'CryptoNight v8 ReverseWaltz';
                 xmrstakAlgo = 'cryptonight_v8_reversewaltz';
             } else if (cnVariant === 15) {
                 algorithm = 'CryptoNight Zelerius';
                 xmrstakAlgo = 'cryptonight_v8_zelerius';
+		xmrigAlgo = 'cn/zls';
             } else if (cnVariant === 16) {
                 algorithm = 'CryptoNight v8 Double';
                 xmrstakAlgo = 'cryptonight_v8_double';
+		xmrigAlgo = 'cn/double';
             } else {
                 algorithm = 'CryptoNight';
                 xmrstakAlgo = 'cryptonight';
+		xmrigAlgo = 'cn/2';
             }
         }
 
         updateText('cnAlgorithm', algorithm);
         updateText('xmrstakAlgo', xmrstakAlgo);
+        updateText('xmrigAlgoCPU', xmrigAlgo);
+        updateText('xmrigAlgoAMD', xmrigAlgo);
+        updateText('xmrigAlgoNVIDIA', xmrigAlgo);
+        updateText('xmrigAlgoCC', xmrigAlgo);
     }
 };
 

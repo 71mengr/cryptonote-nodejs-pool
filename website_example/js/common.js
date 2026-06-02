@@ -1231,17 +1231,206 @@ market methods
 ***************************************************************
 */
 
-function market_LoadMarketData(api, stats, loadedData, xhrMarketGets) {
+function market_LoadMarketData(api, stats, loadedData, currencyPairs, xhrMarketGets, marketPrices) {
     if (loadedData[stats.config.coin]) return ;
         
     if (typeof marketCurrencies !== 'undefined' && marketCurrencies.length > 0){
-        let intervalMarketPolling = setInterval(market_UpdateMarkets(api, stats,  xhrMarketGets), 300000);
-        market_UpdateMarkets(api, stats, xhrMarketGets);
+        let intervalMarketPolling = setInterval(market_UpdateMarkets(api, stats, currencyPairs, xhrMarketGets, marketPrices), 300000);
+        market_UpdateMarkets(api, stats, currencyPairs, xhrMarketGets, marketPrices);
     } else {
         $(`#marketInfos${stats.config.coin}`).hide();
     }
     
     loadedData[stats.config.coin] = true;
+}
+    
+// Market data polling (poll data every 5 minutes)
+function market_UpdateMarkets(api, stats, currencyPairs, xhrMarketGets, marketPrices){
+    if (typeof marketCurrencies === 'undefined' || marketCurrencies.length === 0) return ;
+    
+    currencyPairs[stats.config.coin] = []
+
+    for (let i = 0; i < marketCurrencies.length; i++){
+        currencyPairs[stats.config.coin].push(marketCurrencies[i].replace('{symbol}', stats.config.symbol).toUpperCase());
+    }
+
+    if (xhrMarketGets[stats.config.coin]) xhrMarketGets[stats.config.coin].abort()
+
+    xhrMarketGets[stats.config.coin] = $.ajax({
+        url: api + '/get_market',
+        data: { tickers: currencyPairs[stats.config.coin] },
+        dataType: 'json',
+        cache: 'false',
+        success: function(data) {
+            if (!data || data.length === 0) {
+                $(`#marketInfos${stats.config.coin}`).hide();
+                return;
+            }
+
+            $(`#marketInfos${stats.config.coin}`).empty();
+            for (let i in data) {
+                if (!data[i] || !data[i].ticker) continue;
+                let ticker = data[i].ticker;
+                let tickerParts = ticker.split('-');
+                let tickerBase = tickerParts[0] || null;
+                let tickerTarget = tickerParts[1] || null;
+
+                let price  = data[i].price;
+                if (!price || price === 0) continue;
+
+                let dataSource = data[i].source;
+
+                market_RenderMarketPrice(tickerBase, tickerTarget, price, dataSource, stats, marketPrices);
+            }
+            $(`#marketInfos${stats.config.coin}`).show();
+    },
+        error: function() {
+            $(`#marketInfos${stats.config.coin}`).hide();
+        }
+    });
+}
+
+// Render market price
+function market_RenderMarketPrice(base, target, price, source, stats, marketPrices) {
+    let icon = 'fa-money';
+    if (target == 'BTC') icon = 'fa-btc';
+    if (target == 'BCH') icon = 'fa-btc';
+    if (target == 'USD') icon = 'fa-dollar';
+    if (target == 'CAD') icon = 'fa-dollar';
+    if (target == 'EUR') icon = 'fa-eur';
+    if (target == 'GBP') icon = 'fa-gbp';
+    if (target == 'JPY') icon = 'fa-jpy';
+            
+    if (base == stats.config.symbol.toUpperCase()) {
+        marketPrices[stats.config.coin][target] = price;
+    }
+
+    if (target == 'USD' || target == 'CAD' ||  target == 'EUR' || target == 'GBP' || target == 'JPY') {
+        price = price.toFixed(4);
+    } else {
+        price = price.toFixed(8);
+    }
+
+    let sourceURL = null;
+    if (source == 'cryptonator') sourceURL = 'https://www.cryptonator.com/';
+    else if (source == 'altex') sourceURL = 'https://altex.exchange/';
+    else if (source == 'crex24') sourceURL = 'https://crex24.com/';
+    else if (source == 'cryptopia') sourceURL = 'https://www.cryptopia.co.nz/';
+    else if (source == 'stocks.exchange') sourceURL = 'https://stocks.exchange/';
+    else if (source == 'tradeogre') sourceURL = 'https://tradeogre.com/';
+
+    source = source.charAt(0).toUpperCase() + source.slice(1);
+    if (sourceURL) source = '<a href="'+sourceURL+'" target="_blank" rel="nofollow">'+source+'</a>';
+
+    $(`#marketInfos${stats.config.coin}`).append(
+        '<div class="col-lg-3 col-md-4 col-sm-6 marketTicker"><div class="infoBox hoverExpandEffect">' +
+        '<div class="icon"><span class="fa '+ icon + '"></span></div>' +
+        '<div class="content">' + 
+                '<div class="text">' + base + ' to ' + target + '</div>' +
+                '<div class="value">' + price + '</div>' +
+        '<div class="source">Source: ' + source + '</div>' +
+        '</div>' +
+        '</div>'
+    );
+}
+
+/**
+ * Market Charts
+ **/
+
+// Create charts
+function market_CreateCharts(stats) {
+    if (!stats || !stats.charts) return ;
+    let data = stats.charts;
+    let graphData = {
+        price: market_GetGraphData(data.price),
+        profit: market_GetGraphData(data.profit)
+    };
+
+    for(let graphType in graphData) {
+        if (graphData[graphType].values.length > 1) {
+        let $chart = $(`#chart${stats.config.coin}_${graphType}`);
+            let bgcolor = null, bordercolor = null, borderwidth = null;
+            let colorelem = $chart.siblings('a.chart-style');
+            if (colorelem.length == 1) {
+                bgcolor = colorelem.css('background-color');
+                bordercolor = colorelem.css('border-left-color');
+                borderwidth = parseFloat(colorelem.css('width'));
+            }
+            if (bgcolor === null) bgcolor = 'rgba(3, 169, 244, .4)';
+            if (bordercolor === null) bordercolor = '#03a9f4';
+            if (borderwidth === null || isNaN(borderwidth)) borderwidth = 1;
+            let chartObj = new Chart(document.getElementById(`chart${stats.config.coin}_${graphType}`), {
+                type: 'line',
+                data: {
+                    labels: graphData[graphType].names,
+                    datasets: [{
+                        data: graphData[graphType].values,
+                        dataType: graphType,
+                        fill: true,
+                        backgroundColor: bgcolor,
+                        borderColor: bordercolor,
+                        borderWidth: borderwidth
+                    }]
+                },
+                options: {
+                    animation: false,
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    legend: { display: false },
+                    elements: { point: { radius: 0, hitRadius: 10, hoverRadius: 5 } },
+                    scales: {
+                        xAxes: [{
+                            display: false,
+                            ticks: { display: false },
+                            gridLines: { display: false }
+                        }],
+                        yAxes: [{
+                            display: false,
+                            ticks: {
+                                display: false,
+                                beginAtZero: true,
+                                userCallback: function(label, index, labels) {
+                                    if (Math.floor(label) === label) return label;
+                                }
+                            },
+                            gridLines: { display: false }
+                        }]
+                    },
+                    layout: {
+                        padding: { top: 5, left: 10, right: 10, bottom: 10 }
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function(tooltipItem, data) {
+                                let dataType = data.datasets[tooltipItem.datasetIndex].dataType || '';
+                                let label = tooltipItem.yLabel;
+                                if (dataType == 'price') label = parseFloat(tooltipItem.yLabel).toFixed(4);
+                                else if (dataType == 'profit') label = parseFloat(tooltipItem.yLabel).toFixed(10);
+                                return ' ' + label;
+                            }
+                        }
+                    }
+                }
+            });
+            $chart.closest('.marketChart').show();
+        }
+    }
+}
+
+// Get chart data
+function market_GetGraphData(rawData) {
+    let graphData = {
+        names: [],
+        values: []
+    };
+    if(rawData) {
+        for (let i = 0, xy; xy = rawData[i]; i++) {
+            graphData.names.push(new Date(xy[0]*1000).toLocaleString());
+            graphData.values.push(xy[1]);
+        }
+    }
+    return graphData;
 }
 
 
@@ -1260,13 +1449,16 @@ function market_CalcEstimateProfit(marketPrices){
         let profit = (hashRate * 86400 / lastStats.network.difficulty) * lastStats.lastblock.reward;
         if (profit) {
             updateText(`calcHashAmount${coin}1`, getReadableCoin(lastStats, profit));
+            updateText(`calcHashAmount${coin}2`, market_GetCurrencyPriceText(lastStats, profit, marketPrices));
             //return;
         } else {
             updateText(`calcHashAmount${coin}1`, '');
+            updateText(`calcHashAmount${coin}2`, '');
         }
     }
     catch (e){
         updateText(`calcHashAmount${coin}1`, '');
+        updateText(`calcHashAmount${coin}2`, '');
     }
 
 
@@ -1283,18 +1475,28 @@ function market_CalcEstimateProfit(marketPrices){
             let profit = (hashRate * 86400 / mergedStats[key].network.difficulty) * mergedStats[key].lastblock.reward;
             if (profit) {
                 updateText(`calcHashAmount${key}1`, getReadableCoin(mergedStats[key], profit));
+                updateText(`calcHashAmount${key}2`, market_GetCurrencyPriceText(mergedStats[key], profit, marketPrices));
                 return;
             } else {
                 updateText(`calcHashAmount${key}1`, '');
+                updateText(`calcHashAmount${key}2`, '');
             }
         }
         catch(e)
         {
             updateText(`calcHashAmount${key}1`, '');
+            updateText(`calcHashAmount${key}2`, '');
         }
     })
 }
 
+
+// Get price in specified currency
+function market_GetCurrencyPriceText(stats, coinsRaw, marketPrices) {
+    if (!priceCurrency || !marketPrices[stats.config.coin] || !marketPrices[stats.config.coin][priceCurrency]) return ;
+    let priceInCurrency = (Math.trunc(getReadableCoin(stats, coinsRaw, 2, true) * marketPrices[stats.config.coin][priceCurrency] * 100) / 100);
+    return  priceInCurrency + ' ' + priceCurrency;
+}
 
 function market_InitTemplate(ranOnce, chartsInitialized, loadedData, marketPrices, intervalChartsUpdate, currencyPairs, xhrMarketGets) {
     priceSource = lastStats.config.priceSource || 'cryptonator';
@@ -1324,6 +1526,12 @@ function market_InitTemplate(ranOnce, chartsInitialized, loadedData, marketPrice
         updateText(`priceChartCurrency${lastStats.config.coin}`, priceCurrency);
         updateText(`profitChartProfit${lastStats.config.coin}`, priceCurrency);
 
+        if (lastStats.charts && !chartsInitialized[coin]) {
+            intervalChartsUpdate[coin] = setInterval(market_CreateCharts(lastStats), 60*1000);
+            market_CreateCharts(lastStats);
+            chartsInitialized[coin] = true;
+        }
+
     }
 
    market_LoadMarketData(api, lastStats, loadedData, currencyPairs, xhrMarketGets, marketPrices);
@@ -1351,6 +1559,11 @@ function market_InitTemplate(ranOnce, chartsInitialized, loadedData, marketPrice
 
         market_LoadMarketData(mergedApis[key].api, mergedStats[key], loadedData, currencyPairs, xhrMarketGets, marketPrices);
 
+        if (mergedStats[key].charts && !chartsInitialized[key]) {
+            intervalChartsUpdate[key] = setInterval(market_CreateCharts(mergedStats[key]), 60*1000);
+            market_CreateCharts(mergedStats[key]);
+            chartsInitialized[key] = true;
+        }
 
     })
 
@@ -1897,67 +2110,40 @@ workerstats methods
 */
 
 let home_GraphSettings = {
-	type: 'line',
-	width: '100%',
-	height: '140',
-	lineColor: '#03a9f4',
-	fillColor: 'rgba(3, 169, 244, .4)',
-	spotColor: null,
-	minSpotColor: null,
-	maxSpotColor: null,
-	highlightLineColor: '#236d26',
-	spotRadius: 3,
-	chartRangeMin: 0,
-	drawNormalOnTop: false,
-	tooltipFormat: '<b>{{y}}</b> &ndash; {{offset:names}}'
+    type: 'line',
+    width: '100%',
+    height: '140',
+    lineColor: '#03a9f4',
+    fillColor: 'rgba(3, 169, 244, .4)',
+    spotColor: null,
+    minSpotColor: null,
+    maxSpotColor: null,
+    highlightLineColor: '#236d26',
+    spotRadius: 3,
+    chartRangeMin: 0,
+    drawNormalOnTop: false,
+    tooltipFormat: '<b>{{y}}</b> &ndash; {{offset:names}}'
 };
 
-function home_CreateCharts (data) {
-	if (data.hasOwnProperty("charts")) {
-		var graphData = {
-			hashrate: {
-				data: [home_GetGraphData(data.charts.hashrate), home_GetGraphData(data.charts.hashrateSolo)],
-				options: {
-					lineColor: 'orange'
-				}
-			},
-			diff: {
-				data: [home_GetGraphData(data.charts.difficulty)]
-			},
-			miners: {
-				data: [home_GetGraphData(data.charts.miners), home_GetGraphData(data.charts.minersSolo)],
-				options: {
-					lineColor: 'orange'
-				}
-			},
-			workers: {
-				data: [home_GetGraphData(data.charts.workers), home_GetGraphData(data.charts.workersSolo)],
-				options: {
-					lineColor: 'orange'
-				}
-			},
-		};
+function home_CreateCharts(data) {
+    if (data.hasOwnProperty("charts")) {
+        var graphData = {
+            hashrate: home_GetGraphData(data.charts.hashrate),
+            diff: home_GetGraphData(data.charts.difficulty),
+            miners: home_GetGraphData(data.charts.miners),
+            workers: home_GetGraphData(data.charts.workers)
+        };
 
-		for (var graphType in graphData) {
-			if (graphData[graphType].data[0].values.length > 1) {
-				var settings = jQuery.extend({}, home_GraphSettings);
-				settings.tooltipValueLookups = {
-					names: graphData[graphType].data[0].names
-				};
-				var $chart = $('[data-chart=' + graphType + '] .chart');
-				$chart.closest('.poolChart')
-					.show();
-				settings.tooltipFormat = graphData[graphType].data[1] ? '<span style="color:{{color}}">PROP: {{y}}</span> &ndash; {{offset:names}}' : '<span>{{y}}</span> &ndash; {{offset:names}}'
-				$chart.sparkline(graphData[graphType].data[0].values, settings);
-				if (graphData[graphType].data[1]) {
-					settings.composite = true
-					settings.lineColor = graphData[graphType].options.lineColor
-					settings.tooltipFormat = '<span style="color:orange">SOLO: {{y}}</span> &ndash; {{offset:names}}'
-					$chart.sparkline(graphData[graphType].data[1].values, settings);
-				}
-			}
-		}
-	}
+        for(var graphType in graphData) {
+            if(graphData[graphType].values.length > 1) {
+                var settings = jQuery.extend({}, home_GraphSettings);
+                settings.tooltipValueLookups = {names: graphData[graphType].names};
+                var $chart = $('[data-chart=' + graphType + '] .chart');
+                $chart.closest('.poolChart').show();
+                $chart.sparkline(graphData[graphType].values, settings);
+            }
+        }
+    }
 }
 
 // Get chart data
@@ -2026,16 +2212,11 @@ function home_InitTemplate(parentStats, siblingStats) {
     }
 
 
-
-    
-
-
     updateText(`networkHashrate${coin}`, getReadableHashRateString(parentStats.network.difficulty / parentStats.config.coinDifficultyTarget) + '/sec');
     updateText(`networkDifficulty${coin}`, formatNumber(parentStats.network.difficulty.toString(), ' '));
     updateText(`blockchainHeight${coin}`, formatNumber(parentStats.network.height.toString(), ' '));
-    let rewardMinusNetworkFee = parentStats.lastblock.reward - (parentStats.lastblock.reward * (parentStats.config.networkFee ? parentStats.config.networkFee / 100 : 0))
-    updateText(`networkLastReward${coin}`, getReadableCoin(parentStats, rewardMinusNetworkFee));
-    // updateText(`networkLastReward${coin}`, getReadableCoin(parentStats, parentStats.lastblock.reward));
+    updateText(`networkLastReward${coin}`, getReadableCoin(parentStats, parentStats.lastblock.reward));
+
 
 
     Object.keys(siblingStats).forEach(key => {
@@ -2092,20 +2273,12 @@ function home_InitTemplate(parentStats, siblingStats) {
     let lastHash = updateText('lastHash', parentStats.lastblock.hash)
     if (lastHash)
         lastHash.setAttribute('href', getBlockchainUrl(parentStats.lastblock.hash, parentStats));
-    
+
+
     updateText('poolHashrate', `PROP: ${getReadableHashRateString(parentStats.pool.hashrate)}/sec`);
     updateText('poolHashrateSolo', `SOLO: ${getReadableHashRateString(parentStats.pool.hashrateSolo)}/sec`);
-      
-    updateText(`priceExchangeParent`, parentStats.health[parentStats.config.coin].price + ` ` + parentStats.config.symbol +  `/` + parentStats.config.priceCurrency);
- 
-    const namecoin2 = parentStats.config.coin;
-    if (!document.title.endsWith(` - ${namecoin2}`)) {
-    document.title = document.title + ` - ${namecoin2}`;
-    }
 
-    updateText ('coinname_1', parentStats.config.coin);
-    updateText ('coinname_2', parentStats.config.coin);
-       
+
     var hashPowerSolo = parentStats.pool.hashrateSolo / (parentStats.network.difficulty / parentStats.config.coinDifficultyTarget) * 100;
     updateText ('hashPowerSolo', hashPowerSolo.toFixed(2) + '%');
 

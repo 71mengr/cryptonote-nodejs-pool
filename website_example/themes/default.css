@@ -98,7 +98,7 @@ footer{
   background-color: #262626;
   font-size: 14px;
   color: #efefef;
-  z-index: 0;
+  z-index: 9999;
 }
 footer a {
   color: #6ED5EE;
@@ -174,6 +174,7 @@ footer > div{
   padding-left: 10px;
   padding-right: 10px;
   vertical-align: middle;
+  float: right;
 }
 .nav-side-menu ul .active,
 .nav-side-menu li .active {
@@ -221,8 +222,7 @@ footer > div{
 .nav-side-menu li {
   padding-left: 0;
   border-left: 3px solid #2e353d;
-  border-bottom: 0.5px solid #23282ed1;
-  border-top: 0.5px solid #23282ed1;
+  border-bottom: 1px solid #23282e;
 }
 .nav-side-menu li a {
   text-decoration: none;
@@ -482,7 +482,6 @@ table th.sort:hover{
   color: #fff;
   text-transform: uppercase;
 }
-
 .infoBox .content .value {
   font-size: 22px;
   font-weight: 700;
@@ -490,14 +489,6 @@ table th.sort:hover{
   color: #fff;
   text-shadow: 1px 1px 1px #000;
 }
-.infoBox .content .value2 {
-  font-size: 16px;
-  font-weight: 700;
-  padding-top: 10px;
-  color: #fff;
-  text-shadow: 1px 1px 1px #000;
-}
-
 .infoBox .content .value .smallText {
   font-size: 16px;
   font-weight: normal;
@@ -573,14 +564,6 @@ table th.sort:hover{
 @media (max-width: 767px){
   .slushInfo {
     margin-bottom: 15px;
-  }
-}
-@media (max-width: 305px){
-  .infoBox .content .text2 {
-    font-size: 10px;
-    margin-top: 15px;
-    color: #fff;
-    text-transform: uppercase;
   }
 }
 .slushInfo .content .value {

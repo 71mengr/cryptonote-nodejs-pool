@@ -6,7 +6,7 @@
     "poolBlocks": "Bloques de la Pool",
     "settings": "Ajustes",
     "faq": "FAQ",
-    "telegram": "Telegram",
+    "telegram": "Grupo de Telegram",
     "discord": "Discord",
     "contactUs": "Contacto",
     
@@ -15,7 +15,6 @@
     "you": "Tú Tasa",
     "statsUpdated": "Estadísticas actualizadas",
     
-    "infoAlert" : "",
     "poolHashrate": "Tasa Pool (hash)",
     "currentEffort": "Ronda actual",
     "networkHashrate": "Tasa Red (hash)",
@@ -104,7 +103,7 @@
     "download": "Descargar",
     "showConfig": "Ver más",
 
-    "market": "Calculadora",
+    "market": "Mercado / Calculadora",
     "loadingMarket": "Cargando precios del mercado",
     "priceIn": "Precio en",
     "hashPer": "Hash/",

@@ -1,7 +1,7 @@
 {
     "poolHost": "localhost",
-    "coin": "Zent",
-    "symbol": "ZTC",
+    "coin": "TKM",
+    "symbol": "TKM",
     "coinUnits": 100,
     "coinDecimalPlaces": 2,
     "coinDifficultyTarget": 120,
@@ -136,7 +136,7 @@
       "hashrateWindow": 600,
       "updateInterval": 60,
       "bindIp": "0.0.0.0",
-      "port": 14035,
+      "port": 25000,
       "blocks": 10,
       "payments": 10,
       "password": "Admin Api Password",

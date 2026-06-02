@@ -6,7 +6,7 @@
     "poolBlocks": "Blocs de la Pool",
     "settings": "Ajustaments",
     "faq": "FAQ",
-    "telegram": "Telegram",
+    "telegram": "Grup de Telegram",
     "discord": "Discord",
     "contactUs": "Contactar",
     "network": "Xarxa",
@@ -14,7 +14,6 @@
     "you": "La teva taxa",
     "statsUpdated": "Estadístiques actualitzades",
     
-    "infoAlert" : "",
     "poolHashrate": "Taxa de la Pool (hash)",
     "currentEffort": "Esforç actual",
     "networkHashrate": "Taxa de la Xarxa (hash)",
@@ -103,7 +102,7 @@
     "download": "Descarregar",
     "showConfig": "Veure més",
 
-    "market": "Mercat",
+    "market": "Mercat / Calculadora",
     "loadingMarket": "Carregant preus del mercat",
     "priceIn": "Preu en",
     "hashPer": "Hash/",

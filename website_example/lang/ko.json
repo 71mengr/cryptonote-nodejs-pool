@@ -14,7 +14,6 @@
     "you": "you",
     "statsUpdated": "업데이트",
     
-    "infoAlert" : "",
     "poolHashrate": "풀의 해시레이트",
     "currentEffort": "Current Effort",
     "networkHashrate": "네크워크 해시레이트",
@@ -103,7 +102,7 @@
     "download": "Download",
     "showConfig": "See more",
 
-    "market": "채굴량계산기",
+    "market": "시장가격 / 채굴량계산기",
     "loadingMarket": "Loading market prices",
     "priceIn": "Price in",
     "hashPer": "Hash/",
