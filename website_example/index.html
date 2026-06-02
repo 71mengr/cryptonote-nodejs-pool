@@ -233,7 +233,11 @@ function fetchLiveStats(endPoint, key) {
     }).done(function(data){
         updateLiveStats(data, key);
     }).always(function(){
-        fetchLiveStats(endPoint, key);
+        if (xhrLiveStats[key] && xhrLiveStats[key].statusText !== 'abort') {
+            setTimeout(function(){
+                fetchLiveStats(endPoint, key);
+            }, 2000);
+        }
     });
 }
 
@@ -259,6 +263,9 @@ function fetchBlockExplorers() {
         cache: 'false',
     }).done(function(data){
         mergedApis = data;
+    }).fail(function(){
+        mergedApis = {};
+    }).always(function(){
     loadLiveStats()
     })
 }

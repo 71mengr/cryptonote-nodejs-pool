@@ -246,6 +246,9 @@ currentPage = {
         $('#networkLastBlockFound,#poolLastBlockFound').timeago('dispose');
     },
     update: function(updateKey){
+        if (!lastStats || !lastStats.lastblock)
+            return;
+
         if (lastStats)
             $('#networkLastBlockFound').timeago('update', new Date(lastStats.lastblock.timestamp * 1000).toISOString());
 

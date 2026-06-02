@@ -2184,6 +2184,11 @@ function sortElementList(container, siblings,  stats) {
 
 
 function home_InitTemplate(parentStats, siblingStats) {
+    if (!parentStats || !parentStats.lastblock || !parentStats.config || !parentStats.pool || !parentStats.network)
+        return;
+
+    siblingStats = siblingStats || {};
+
     $('#networkLastBlockFound').timeago('update', new Date(parentStats.lastblock.timestamp * 1000).toISOString());
 
     let coin = parentStats.config.coin
